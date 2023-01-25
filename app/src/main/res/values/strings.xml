@@ -1,0 +1,21 @@
+<resources>
+    <string name="app_name">Broccoli</string>
+    <string name="company_title"><![CDATA[Broccoli & Co.]]></string>
+    <string name="slogan">It\'s like we really love broccoli.</string>
+    <string name="get_invited">Get invited</string>
+    <string name="cancel_invitation">Cancel invitation</string>
+    <string name="name">Name</string>
+    <string name="email">E-mail</string>
+    <string name="confirm_email">Confirm email</string>
+    <string name="submit">Submit</string>
+    <string name="congratulations">Congratulations!</string>
+    <string name="ok">OK</string>
+    <string name="submitting">Submitting...</string>
+    <string name="response_successful_title">Congratulations!</string>
+    <string name="response_successful_description">Invitation is sent to your email.</string>
+    <string name="used_email_message">This email is already used.</string>
+    <string name="cancel_alert_title">Are you sure?</string>
+    <string name="cancel_alert_description">You won\'t get invitation anymore.</string>
+    <string name="invitation_canceled_title">Invitation canceled!</string>
+    <string name="invitation_canceled_description">We still hope to see you.</string>
+</resources>
