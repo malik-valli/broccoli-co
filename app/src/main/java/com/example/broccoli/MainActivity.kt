@@ -113,12 +113,15 @@ class MainActivity : AppCompatActivity() {
 
         viewModel.nameError.observe(this) {
             binding.nameLayout.error = it
+            binding.nameLayout.isErrorEnabled = !it.isNullOrEmpty()
         }
         viewModel.emailError.observe(this) {
             binding.emailLayout.error = it
+            binding.emailLayout.isErrorEnabled = !it.isNullOrEmpty()
         }
         viewModel.confirmEmailError.observe(this) {
             binding.confirmEmailLayout.error = it
+            binding.confirmEmailLayout.isErrorEnabled = !it.isNullOrEmpty()
         }
     }
 
