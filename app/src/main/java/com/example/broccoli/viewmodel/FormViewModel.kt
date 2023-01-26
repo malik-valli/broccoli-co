@@ -1,20 +1,21 @@
 package com.example.broccoli.viewmodel
 
-import android.app.Application
-import android.content.Context
 import android.content.SharedPreferences
-import androidx.lifecycle.AndroidViewModel
-import androidx.lifecycle.LiveData
-import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.viewModelScope
+import androidx.lifecycle.*
 import com.example.broccoli.model.User
 import com.example.broccoli.model.repository.Repository
 import kotlinx.coroutines.launch
 import retrofit2.Response
 
-class FormViewModel(application: Application) : AndroidViewModel(application) {
+class FormViewModel(sharedPref: SharedPreferences) : ViewModel() {
 
-    private val sharedPref = application.getSharedPreferences("user_preferences", Context.MODE_PRIVATE)
+    class Factory(private val sharedPref: SharedPreferences) : ViewModelProvider.Factory {
+        override fun <T : ViewModel> create(modelClass: Class<T>): T {
+            @Suppress("UNCHECKED_CAST")
+            return FormViewModel(sharedPref) as T
+        }
+    }
+
     val editor: SharedPreferences.Editor = sharedPref.edit()
     val invitedKey = "is_invited"
     private val _isInvited = MutableLiveData(sharedPref.getBoolean(invitedKey, false))
@@ -48,25 +49,22 @@ class FormViewModel(application: Application) : AndroidViewModel(application) {
     val confirmEmailError: LiveData<String?> = _confirmEmailError
 
     private fun validate(name: String?, email: String?, confirmEmail: String?): Boolean {
+        return isNameValid(name) && areEmailsValid(email, confirmEmail)
+    }
 
-        var isValid = true
-
+    fun isNameValid(name: String?): Boolean {
         _nameError.value = name?.let { nameValidation.validate(it) }
         if (_nameError.value != null)
-            isValid = false
+            return false
+        return true
+    }
 
+    fun areEmailsValid(email: String?, confirmEmail: String?): Boolean {
         _emailError.value = email?.let { emailValidation.validate(it) }
-        if (_emailError.value != null)
-            isValid = false
-
-        if (confirmEmail != email) {
-            _confirmEmailError.value = "Emails do not match"
-            isValid = false
-        } else {
-            _confirmEmailError.value = null
-        }
-
-        return isValid
+        _confirmEmailError.value = if (confirmEmail != email) "Emails do not match" else null
+        if (_emailError.value != null || _confirmEmailError.value != null)
+            return false
+        return true
     }
 
     fun submitUser(name: String?, email: String?, confirmEmail: String?) {

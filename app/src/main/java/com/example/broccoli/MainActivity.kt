@@ -1,24 +1,31 @@
 package com.example.broccoli
 
-import androidx.appcompat.app.AppCompatActivity
+import android.content.Context
 import android.os.Bundle
 import android.view.View
 import android.widget.Toast
-import androidx.activity.viewModels
 import androidx.appcompat.app.AlertDialog
+import androidx.appcompat.app.AppCompatActivity
+import androidx.core.widget.doOnTextChanged
+import androidx.lifecycle.ViewModelProvider
 import com.example.broccoli.databinding.ActivityMainBinding
 import com.example.broccoli.viewmodel.FormViewModel
 
 class MainActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityMainBinding
-    private val viewModel: FormViewModel by viewModels()
+    private lateinit var viewModel: FormViewModel
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
+
+        val sharedPreferences = getPreferences(Context.MODE_PRIVATE)
+
+        val viewModelFactory = FormViewModel.Factory(sharedPreferences)
+        viewModel = ViewModelProvider(this, viewModelFactory)[FormViewModel::class.java]
 
         binding.apply {
             submitButton.setOnClickListener {
@@ -40,6 +47,16 @@ class MainActivity : AppCompatActivity() {
                         R.layout.image_cancelled
                     )
                 }
+            }
+
+            name.doOnTextChanged { text, _, _, _ ->
+                viewModel.isNameValid(text.toString())
+            }
+            email.doOnTextChanged { text, _, _, _ ->
+                viewModel.areEmailsValid(text.toString(), confirmEmail.text.toString())
+            }
+            confirmEmail.doOnTextChanged { text, _, _, _ ->
+                viewModel.areEmailsValid(email.text.toString(), text.toString())
             }
         }
 
@@ -71,6 +88,7 @@ class MainActivity : AppCompatActivity() {
             if (it) {
                 binding.apply {
                     submitButton.text = getString(R.string.submitting)
+                    submitButton.isEnabled = false
                     nameLayout.isEnabled = false
                     emailLayout.isEnabled = false
                     confirmEmailLayout.isEnabled = false
@@ -78,6 +96,7 @@ class MainActivity : AppCompatActivity() {
             } else {
                 binding.apply {
                     submitButton.text = getString(R.string.submit)
+                    submitButton.isEnabled = true
                     nameLayout.isEnabled = true
                     emailLayout.isEnabled = true
                     confirmEmailLayout.isEnabled = true
