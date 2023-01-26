@@ -28,8 +28,8 @@ class MainActivity : AppCompatActivity() {
         viewModel = ViewModelProvider(this, viewModelFactory)[FormViewModel::class.java]
 
         binding.apply {
-            submitButton.setOnClickListener {
-                viewModel.submitUser(
+            sendButton.setOnClickListener {
+                viewModel.sendUser(
                     binding.name.text.toString(),
                     binding.email.text.toString(),
                     binding.confirmEmail.text.toString()
@@ -42,8 +42,8 @@ class MainActivity : AppCompatActivity() {
                 ) {
                     viewModel.cancelInvitation()
                     showPopUp(
-                        getString(R.string.invitation_canceled_title),
-                        getString(R.string.invitation_canceled_description),
+                        getString(R.string.invitation_cancelled_title),
+                        getString(R.string.invitation_cancelled_description),
                         R.layout.image_cancelled
                     )
                 }
@@ -87,16 +87,16 @@ class MainActivity : AppCompatActivity() {
         viewModel.isLoading.observe(this) {
             if (it) {
                 binding.apply {
-                    submitButton.text = getString(R.string.submitting)
-                    submitButton.isEnabled = false
+                    sendButton.text = getString(R.string.sending)
+                    sendButton.isEnabled = false
                     nameLayout.isEnabled = false
                     emailLayout.isEnabled = false
                     confirmEmailLayout.isEnabled = false
                 }
             } else {
                 binding.apply {
-                    submitButton.text = getString(R.string.submit)
-                    submitButton.isEnabled = true
+                    sendButton.text = getString(R.string.send)
+                    sendButton.isEnabled = true
                     nameLayout.isEnabled = true
                     emailLayout.isEnabled = true
                     confirmEmailLayout.isEnabled = true

@@ -67,7 +67,7 @@ class FormViewModel(sharedPref: SharedPreferences) : ViewModel() {
         return true
     }
 
-    fun submitUser(name: String?, email: String?, confirmEmail: String?) {
+    fun sendUser(name: String?, email: String?, confirmEmail: String?) {
 
         val valid = validate(name, email, confirmEmail)
         if (valid) {
