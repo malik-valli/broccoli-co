@@ -26,8 +26,8 @@ If the server returns an error (it has one hardcoded e-mail usedemail@blinq.app)
 
 
 <p>
-  <img src="https://user-images.githubusercontent.com/81878781/214561406-cbb3ae04-4f15-456f-99fa-4a6e25a157da.png" width="16%">
-  <img src="https://user-images.githubusercontent.com/81878781/214881329-8f46e164-0658-4b71-abd5-ba89d94984ed.png" width="16%">
+  <img src="https://user-images.githubusercontent.com/81878781/214898976-50a5abd8-7f2e-43f4-bec0-59fe27e22630.png" width="16%">
+  <img src="https://user-images.githubusercontent.com/81878781/214899002-90ed96bf-0568-4f64-919c-cc5c646c3da6.png" width="16%">
   <img src="https://user-images.githubusercontent.com/81878781/214561857-1472898d-7dc7-41c9-8c87-fcde8bb21169.png" width="16%">
   <img src="https://user-images.githubusercontent.com/81878781/214561879-64bdcf01-b248-49f3-a717-c1a9529f9c7a.png" width="16%">
   <img src="https://user-images.githubusercontent.com/81878781/214561905-56c03689-f443-4a7b-b650-687ddf45f077.png" width="16%">
