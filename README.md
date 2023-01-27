@@ -23,6 +23,7 @@ If the server returns an error (it has one hardcoded e-mail usedemail@blinq.app)
 - ViewModel, LiveData and ViewBinding
 - SharedPreferences: to save the user's state
 - AlertDialogs
+- <a href="https://www.flaticon.com/free-icons/sculpture" title="sculpture icons">Sculpture icons created by Freepik - Flaticon</a>
 
 
 <p>
