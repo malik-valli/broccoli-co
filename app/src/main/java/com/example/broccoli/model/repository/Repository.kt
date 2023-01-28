@@ -6,7 +6,7 @@ import retrofit2.Response
 
 object Repository {
 
-    suspend fun sendUser(user: User): Response<String> {
+    suspend fun sendUser(user: User): Response<String>? {
         return RetrofitInstance.api.sendUser(user)
     }
 }

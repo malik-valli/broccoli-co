@@ -78,7 +78,7 @@ class FormViewModel(sharedPref: SharedPreferences) : ViewModel() {
                 _myResponse.value = response
                 _isLoading.value = false
 
-                _isInvited.value = response.isSuccessful
+                _isInvited.value = response?.isSuccessful
             }
         }
     }

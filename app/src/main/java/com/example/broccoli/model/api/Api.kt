@@ -10,5 +10,5 @@ interface Api {
     @POST("/fakeAuth")
     suspend fun sendUser(
         @Body user: User
-    ): Response<String>
+    ): Response<String>?
 }
