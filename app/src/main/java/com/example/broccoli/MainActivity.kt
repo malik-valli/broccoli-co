@@ -53,10 +53,10 @@ class MainActivity : AppCompatActivity() {
                 viewModel.isNameValid(text.toString())
             }
             email.doOnTextChanged { text, _, _, _ ->
-                viewModel.areEmailsValid(text.toString(), confirmEmail.text.toString())
+                viewModel.isEmailValidAndConfirmed(text.toString(), confirmEmail.text.toString())
             }
             confirmEmail.doOnTextChanged { text, _, _, _ ->
-                viewModel.areEmailsValid(email.text.toString(), text.toString())
+                viewModel.isEmailValidAndConfirmed(email.text.toString(), text.toString())
             }
         }
 
@@ -64,8 +64,8 @@ class MainActivity : AppCompatActivity() {
             if (it != null) {
                 if (it.isSuccessful) {
                     showPopUp(
-                        getString(R.string.response_successful_title),
-                        getString(R.string.response_successful_description),
+                        getString(R.string.invitation_sent_title),
+                        getString(R.string.invitation_sent_description),
                         R.layout.image_invited
                     )
                 } else {
@@ -79,7 +79,7 @@ class MainActivity : AppCompatActivity() {
         }
 
         viewModel.isInvited.observe(this) {
-            viewModel.updateUIbyInvitationStatus()
+            viewModel.updateForm()
             viewModel.editor.putBoolean(viewModel.invitedKey, it)
             viewModel.editor.apply()
         }
@@ -111,17 +111,21 @@ class MainActivity : AppCompatActivity() {
             binding.cancelInviteButton.visibility = if (it) View.VISIBLE else View.GONE
         }
 
-        viewModel.nameError.observe(this) {
-            binding.nameLayout.error = it
-            binding.nameLayout.isErrorEnabled = !it.isNullOrEmpty()
+        viewModel.isNameValid.observe(this) {
+            binding.nameLayout.error = if (!it) getString(
+                R.string.name_error,
+                viewModel.nameValidator.length
+            ) else null
+            binding.nameLayout.isErrorEnabled = !it
         }
-        viewModel.emailError.observe(this) {
-            binding.emailLayout.error = it
-            binding.emailLayout.isErrorEnabled = !it.isNullOrEmpty()
+        viewModel.isEmailValid.observe(this) {
+            binding.emailLayout.error = if (!it) getString(R.string.email_error) else null
+            binding.emailLayout.isErrorEnabled = !it
         }
-        viewModel.confirmEmailError.observe(this) {
-            binding.confirmEmailLayout.error = it
-            binding.confirmEmailLayout.isErrorEnabled = !it.isNullOrEmpty()
+        viewModel.isEmailConfirmed.observe(this) {
+            binding.confirmEmailLayout.error =
+                if (!it) getString(R.string.email_confirmation_error) else null
+            binding.confirmEmailLayout.isErrorEnabled = !it
         }
     }
 

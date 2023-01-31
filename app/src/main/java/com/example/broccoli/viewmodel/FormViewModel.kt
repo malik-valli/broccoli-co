@@ -33,38 +33,33 @@ class FormViewModel(sharedPref: SharedPreferences) : ViewModel() {
     private val _isVisible = MutableLiveData(true)
     val isVisible: LiveData<Boolean> = _isVisible
 
-    fun updateUIbyInvitationStatus() {
+    fun updateForm() {
         _isCancelButtonEnabled.value = _isInvited.value
         _isVisible.value = !_isInvited.value!!
     }
 
-    private val nameValidation = NameValidation(3)
-    private val emailValidation = EmailValidation()
+    val nameValidator = NameValidator(length = 3)
 
-    private val _nameError = MutableLiveData<String>()
-    val nameError: LiveData<String> = _nameError
-    private val _emailError = MutableLiveData<String>()
-    val emailError: LiveData<String> = _emailError
-    private val _confirmEmailError = MutableLiveData<String?>()
-    val confirmEmailError: LiveData<String?> = _confirmEmailError
+    private val _isNameValid = MutableLiveData<Boolean>()
+    val isNameValid: LiveData<Boolean> = _isNameValid
+    private val _isEmailValid = MutableLiveData<Boolean>()
+    val isEmailValid: LiveData<Boolean> = _isEmailValid
+    private val _isEmailConfirmed = MutableLiveData<Boolean>()
+    val isEmailConfirmed: LiveData<Boolean> = _isEmailConfirmed
 
     private fun validate(name: String?, email: String?, confirmEmail: String?): Boolean {
-        return isNameValid(name) && areEmailsValid(email, confirmEmail)
+        return isNameValid(name) && isEmailValidAndConfirmed(email, confirmEmail)
     }
 
     fun isNameValid(name: String?): Boolean {
-        _nameError.value = name?.let { nameValidation.validate(it) }
-        if (_nameError.value != null)
-            return false
-        return true
+        _isNameValid.value = name?.let { !nameValidator.validate(it) }
+        return isNameValid.value!!
     }
 
-    fun areEmailsValid(email: String?, confirmEmail: String?): Boolean {
-        _emailError.value = email?.let { emailValidation.validate(it) }
-        _confirmEmailError.value = if (confirmEmail != email) "Emails do not match" else null
-        if (_emailError.value != null || _confirmEmailError.value != null)
-            return false
-        return true
+    fun isEmailValidAndConfirmed(email: String?, confirmEmail: String?): Boolean {
+        _isEmailValid.value = email?.let { EmailValidator.validate(it) }
+        _isEmailConfirmed.value = confirmEmail == email
+        return isEmailValid.value!! && isEmailConfirmed.value!!
     }
 
     fun sendUser(name: String?, email: String?, confirmEmail: String?) {

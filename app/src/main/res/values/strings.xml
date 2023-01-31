@@ -1,18 +1,24 @@
 <resources>
     <string name="app_name">Broccoli</string>
-    <string name="company_title"><![CDATA[Broccoli & Co.]]></string>
+    <!--Company details-->
+    <string name="company_name"><![CDATA[Broccoli & Co.]]></string>
     <string name="slogan">It\'s like we really love broccoli.</string>
+    <!--Buttons-->
     <string name="cancel_invitation">Cancel invitation</string>
+    <string name="send">Send</string>
+    <string name="sending">Sending…</string>
+    <string name="ok">OK</string>
+    <!--Input-->
     <string name="name">Name</string>
     <string name="email">E-mail</string>
     <string name="confirm_email">Confirm email</string>
-    <string name="send">Send</string>
-    <string name="congratulations">Congratulations!</string>
-    <string name="ok">OK</string>
-    <string name="sending">Sending…</string>
-    <string name="response_successful_title">Congratulations!</string>
-    <string name="response_successful_description">Invitation is sent to your email.</string>
+    <string name="name_error">Must be at least %d characters long</string>
+    <string name="email_error">Invalid email format</string>
+    <string name="email_confirmation_error">Emails do not match</string>
     <string name="used_email_message">This email is already used.</string>
+    <!--Messages-->
+    <string name="invitation_sent_title">Congratulations!</string>
+    <string name="invitation_sent_description">Invitation is sent to your email.</string>
     <string name="cancel_alert_title">Are you sure?</string>
     <string name="cancel_alert_description">You won\'t get invitation anymore.</string>
     <string name="invitation_cancelled_title">The invitation has been cancelled!</string>
